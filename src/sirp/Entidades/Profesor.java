@@ -114,6 +114,6 @@ public class Profesor implements Persona{
     }   
     
     @Override public String toString(){
-        return id_pro+ " "+super.toString();
+        return id_pro+ " "+nombre+" "+apellido;
     }
 }
