@@ -123,7 +123,7 @@ public class Alumno implements Persona{
     }
     
     @Override public String toString(){
-        return id_alu+ ": "+super.toString();        
+        return id_alu+ ": "+nombre+" "+apellido;        
     }
     
     public void controlarAsistencia(int id_dia, int id_mat ){
