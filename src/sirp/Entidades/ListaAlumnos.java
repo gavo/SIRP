@@ -30,7 +30,7 @@ public class ListaAlumnos {
         }
     }
 
-    public List getAl(int i){
+    public List getAl(){
         return lista;
     }
     
