@@ -3,10 +3,13 @@ import com.birosoft.liquid.LiquidLookAndFeel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
+import sirp.GUI.RegistrarAlumno;
 public class SIRP {
 
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
+        style();
+        new RegistrarAlumno();
     }
     
     public static Conexion con;
