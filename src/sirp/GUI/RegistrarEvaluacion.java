@@ -15,7 +15,7 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("Registrar Alumno");
+        this.setTitle("Registrar Evaluacion");
         verChoice();
     }
     @SuppressWarnings("unchecked")

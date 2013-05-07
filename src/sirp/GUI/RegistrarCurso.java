@@ -15,7 +15,7 @@ public class RegistrarCurso extends javax.swing.JFrame {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        this.setTitle("Registrar Alumno");
+        this.setTitle("Registrar Cursos");
         verChoice();
     }
     @SuppressWarnings("unchecked")
