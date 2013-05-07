@@ -104,7 +104,7 @@ public class Conexion{
         } catch (SQLException ex) {
             Logger.getLogger(Conexion.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return n+1;
+        return n;
     }
     
     // permite ver el resultado de una casilla especifica
