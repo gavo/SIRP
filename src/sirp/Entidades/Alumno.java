@@ -156,5 +156,35 @@ public class Alumno implements Persona{
                 id_alu+"','"+
                 id_mat+"','"+
                 estado+"');");
+    }
+    public void updateAsistencia(int id_dia, int id_mat ){
+        char estado = 'X';
+        int seleccion = JOptionPane.showOptionDialog(null,
+        "¿El Alumno:"+nombre+" "+apellido+" asistio hoy?",
+        "Seleccione una opción", JOptionPane.YES_NO_CANCEL_OPTION,
+        JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Si", "No"},"Si");
+        if (seleccion != -1){
+           if((seleccion + 1)==1){     
+               estado = 'P';
+           }
+           else{
+               int seleccion1 = JOptionPane.showOptionDialog(null,
+               "¿Tiene Licencia?",
+               "Seleccione una opción",JOptionPane.YES_NO_CANCEL_OPTION,
+               JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Si", "No"},"Si");
+               if (seleccion1 != -1){
+                   if((seleccion1 + 1)==1){     
+                       estado = 'L';
+                   }
+                   else{
+                       estado = 'F';
+                   }
+               }
+           }
+        }   
+        SIRP.con.query("UPDATE `registro`.`asistencia` SET `estado`='"+estado+"' WHERE `id_dia`='"+
+                id_dia+"' and `id_alu` ='"+
+                id_alu+"'and `id_mat` ='"+
+                id_mat+"';");
     }   
 }
