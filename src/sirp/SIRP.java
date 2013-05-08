@@ -13,7 +13,7 @@ public class SIRP {
     }
     
     public static Conexion con;
-    
+    //ESTO ES UNA PRUEBA, NO TIENE VALOR....
     public static void style(){
         try {
             javax.swing.UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
