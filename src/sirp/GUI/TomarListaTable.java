@@ -3,6 +3,7 @@ package sirp.GUI;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
@@ -130,16 +132,22 @@ public class TomarListaTable extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         verMaterias();
         configurarTabla();
     }//GEN-LAST:event_jComboBox1ItemStateChanged
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tomarValores();
+        String sql = "SELECT estado FROM registro.asistencia WHERE id_dia ='"+
+                d.getId_dia()+"' AND id_mat ='"+
+                id_mat.get(jComboBox2.getSelectedIndex())+"';";
+        int n = SIRP.con.nSeleccionados(sql);
+        if(n == 0){
+            insertarValores();
+        }else{
+            updateValores();
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
-
     private void verCursos(){
         curso = new ArrayList();
         id_cur = new ArrayList();
@@ -182,7 +190,7 @@ public class TomarListaTable extends javax.swing.JFrame {
     }
     private void configurarTabla(){
         modelo.setRowCount(0);
-        modelo.setColumnCount(0);
+        modelo.setColumnCount(0);   
         modelo.addColumn("Alumno");
         modelo.addColumn("Estado");
         ListaAlumnos l = new ListaAlumnos((int)id_cur.get(jComboBox1.getSelectedIndex()));
@@ -218,11 +226,13 @@ public class TomarListaTable extends javax.swing.JFrame {
             }
         };
         return combo;
-    }
-    
+    }    
     private void tomarValores(){         
         nombres = new ArrayList();
-        estados = new ArrayList();
+        estados = new ArrayList();        
+        Date dia = jCalendarComboBox1.getDate();  
+        d = new Dia(dia);
+        d.insert();
         for(int i = 0;i<modelo.getRowCount();i++){
             String nombre = (String)(modelo.getValueAt(i, 0));
             String estado  = (String)(modelo.getValueAt(i, 1)); 
@@ -237,12 +247,38 @@ public class TomarListaTable extends javax.swing.JFrame {
                     estados.add("L");
             }            
         }
-        for(int i = 0;i<nombres.size();i++){
-            System.out.println(nombres.get(i)+"\t "+estados.get(i));
+    }    
+    private void insertarValores(){
+        int id_dia = d.getId_dia();
+        for(int i = 0; i<alumnos.size();i++){
+            String sql = "INSERT INTO registro.asistencia(id_dia,id_alu,id_mat,estado) VALUES ('"
+                + id_dia+"','"
+                + alumnos.get(i).getId()+"','"
+                + id_mat.get(jComboBox2.getSelectedIndex())+"','"
+                + estados.get(i)+"');";
+            SIRP.con.query(sql);
         }
+        String Mensaje = "El Control de Asistencia para la materia de "+jComboBox2.getSelectedItem()+"\n"
+                + "Correspondiente al Curso "+jComboBox1.getSelectedItem()+", en el dia "+d.getDia()+"\n"
+                + "Se Inserto correctamente";
+        JOptionPane.showMessageDialog(rootPane, Mensaje);
+    }    
+    private void updateValores(){
+        int id_dia = d.getId_dia();
+        for(int i = 0; i<alumnos.size();i++){
+            String sql = "UPDATE `registro`.`asistencia` SET `estado`='"
+                + estados.get(i)+"' WHERE id_dia='"
+                + id_dia+"' and id_alu='"
+                + alumnos.get(i).getId()+"' and id_mat='"
+                + id_mat.get(jComboBox2.getSelectedIndex())+"';";
+            SIRP.con.query(sql);
+        }
+        String Mensaje = "El Control de Asistencia para la materia de "+jComboBox2.getSelectedItem()+"\n"
+                + "Correspondiente al curso "+jComboBox1.getSelectedItem()+", en el dia "+d.getDia()+"\n"
+                + "Se actualizo correctamente";
+        JOptionPane.showMessageDialog(rootPane, Mensaje);
     }
-    
-    
+       
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
@@ -262,5 +298,6 @@ public class TomarListaTable extends javax.swing.JFrame {
     private int id_pro;
     private List nombres;
     private List estados;
-    private DefaultTableModel modelo = new DefaultTableModel();
+    private DefaultTableModel modelo = new DefaultTableModel();    
+    private Dia d;
 }
