@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.BorderFactory;
-import javax.swing.ButtonGroup;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -47,8 +46,9 @@ public class TomarListaTable extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), "Control de Asistencia", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION));
 
+        jTable1.setAutoCreateRowSorter(true);
         jTable1.setModel(modelo);
-        jTable1.setFocusable(false);
+        jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane1.setViewportView(jTable1);
 
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
@@ -79,18 +79,20 @@ public class TomarListaTable extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jComboBox1, 0, 140, Short.MAX_VALUE))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBox2, 0, 140, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCalendarComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jCalendarComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(6, 6, 6)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -190,29 +192,34 @@ public class TomarListaTable extends javax.swing.JFrame {
     }
     private void configurarTabla(){
         modelo.setRowCount(0);
-        modelo.setColumnCount(0);   
+        modelo.setColumnCount(0);  
+        modelo.addColumn("Nº");
         modelo.addColumn("Alumno");
         modelo.addColumn("Estado");
         ListaAlumnos l = new ListaAlumnos((int)id_cur.get(jComboBox1.getSelectedIndex()));
         alumnos = l.getAl();
         for(int i =0;i<alumnos.size();i++){
-            Object row[]= new Object[2];
-            row[0]=alumnos.get(i).getNombre()+" "+alumnos.get(i).getApellido();
-            row[1]="Presente";
+            Object row[]= new Object[3];
+            row[0]=(i+1);
+            row[1]=alumnos.get(i).getNombre()+" "+alumnos.get(i).getApellido();
+            row[2]="Presente";
             modelo.addRow(row);
         }
         JComboBox combo = CreameCombo();//CREO EL COMBO
-        TableColumn col = jTable1.getColumnModel().getColumn(1);        
-        col.setMaxWidth(200);
-        col.setMinWidth(200);
+        TableColumn col0 = jTable1.getColumnModel().getColumn(0);
+        col0.setMaxWidth(30);
+        col0.setMinWidth(30);
+        TableColumn col = jTable1.getColumnModel().getColumn(2);        
+        col.setMaxWidth(100);
+        col.setMinWidth(100);
         col.setResizable(true);
-        col = jTable1.getColumnModel().getColumn(1);
+        col = jTable1.getColumnModel().getColumn(2);
         col.setCellEditor(new DefaultCellEditor(combo));//AGREGO EL COMBO AL CELLEDITOR
         jTable1.setAutoCreateRowSorter(true);
     }    
     private JComboBox CreameCombo() {
 	JComboBox combo = new JComboBox(new String[] {"Presente", "Licencia",  "Falta"}) {
-            public void updateUI() {
+            @Override public void updateUI() {
                 super.updateUI();
                 setBorder(BorderFactory.createEmptyBorder());
                 setUI(new BasicComboBoxUI() {
@@ -234,8 +241,8 @@ public class TomarListaTable extends javax.swing.JFrame {
         d = new Dia(dia);
         d.insert();
         for(int i = 0;i<modelo.getRowCount();i++){
-            String nombre = (String)(modelo.getValueAt(i, 0));
-            String estado  = (String)(modelo.getValueAt(i, 1)); 
+            String nombre = (String)(modelo.getValueAt(i, 1));
+            String estado  = (String)(modelo.getValueAt(i, 2)); 
             nombres.add(nombre);
             if(estado.equals("Presente")){
                 estados.add("P");
