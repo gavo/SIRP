@@ -9,7 +9,6 @@ public class SIRP {
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
         style();
-        new TomarLista(1);
         new TomarListaTable(1);
     }
     
@@ -22,6 +21,5 @@ public class SIRP {
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(SIRP.class.getName()).log(Level.SEVERE, null, ex);
         }
-  
    }
 }
