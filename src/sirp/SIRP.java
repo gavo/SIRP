@@ -9,7 +9,7 @@ public class SIRP {
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
         style();
-        new TomarListaTable(1);
+        new RegistrarAsistencia(1);
     }
     
     public static Conexion con;

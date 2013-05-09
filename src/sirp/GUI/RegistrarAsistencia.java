@@ -19,8 +19,8 @@ import javax.swing.table.TableColumn;
 import sirp.Entidades.*;
 import sirp.*;
 
-public class TomarListaTable extends javax.swing.JFrame {
-    public TomarListaTable(int id_pro) {
+public class RegistrarAsistencia extends javax.swing.JFrame {
+    public RegistrarAsistencia(int id_pro) {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -155,6 +155,7 @@ public class TomarListaTable extends javax.swing.JFrame {
     }//GEN-LAST:event_jComboBox1ItemStateChanged
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tomarValores();
+        d.insert();
         String sql = "SELECT estado FROM registro.asistencia WHERE id_dia ='"+
                 d.getId_dia()+"' AND id_mat ='"+
                 id_mat.get(jComboBox2.getSelectedIndex())+"';";
@@ -164,6 +165,7 @@ public class TomarListaTable extends javax.swing.JFrame {
         }else{
             updateValores();
         }
+        comprobarEstado();
     }//GEN-LAST:event_jButton1ActionPerformed
     private void jCalendarComboBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCalendarComboBox1StateChanged
         comprobarEstado();
@@ -181,7 +183,7 @@ public class TomarListaTable extends javax.swing.JFrame {
                 id_cur.add(rs.getInt("id_cur"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TomarListaTable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarAsistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
         jComboBox1.removeAllItems();
         for(int i = 0;i<curso.size();i++){
@@ -204,7 +206,7 @@ public class TomarListaTable extends javax.swing.JFrame {
                 id_mat.add(rs.getInt("id_mat"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TomarListaTable.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarAsistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = 0;i<materia.size();i++){
             jComboBox2.addItem(materia.get(i));
@@ -259,7 +261,6 @@ public class TomarListaTable extends javax.swing.JFrame {
         estados = new ArrayList();        
         Date dia = jCalendarComboBox1.getDate();  
         d = new Dia(dia);
-        d.insert();
         for(int i = 0;i<modelo.getRowCount();i++){
             String nombre = (String)(modelo.getValueAt(i, 1));
             String estado  = (String)(modelo.getValueAt(i, 2)); 
