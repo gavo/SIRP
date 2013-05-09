@@ -9,9 +9,15 @@ public class Tema {
     public Tema(int id_mat, String tema) {
         this.id_mat = id_mat;
         this.tema = tema;
-        this.id_tem = SIRP.con.ultimo("registro.tem", "id_blo")+1; 
+        this.id_tem = SIRP.con.ultimo("registro.tema", "id_tem")+1; 
     }
 
+    public Tema(int id_tem){
+        this.id_tem = id_tem;
+        id_mat = Integer.parseInt(SIRP.con.ver("select id_mat from registro.tema where id_tem='"+id_tem+"';", "id_mat"));
+        tema = SIRP.con.ver("SELECT tema FROM registro.tema WHERE id_tem='"+id_tem+"';", "tema");
+    }
+    
     public void setId_mat(int id_mat) {
         this.id_mat = id_mat;
     }
