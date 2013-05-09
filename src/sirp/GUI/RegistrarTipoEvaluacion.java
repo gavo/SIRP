@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 import sirp.Entidades.Tipo_Ev;
 import sirp.*;
 
-public class RegistrarEvaluacion extends javax.swing.JFrame {
-    public RegistrarEvaluacion() {
+public class RegistrarTipoEvaluacion extends javax.swing.JFrame {
+    public RegistrarTipoEvaluacion() {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
@@ -169,7 +169,7 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
                 vec.add(rs.getString("tipo"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(RegistrarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RegistrarTipoEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = 0;i<vec.size();i++)
             jComboBox1.addItem(vec.get(i));
