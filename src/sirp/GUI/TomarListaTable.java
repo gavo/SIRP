@@ -1,5 +1,6 @@
 package sirp.GUI;
 
+import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,6 +28,7 @@ public class TomarListaTable extends javax.swing.JFrame {
         this.id_pro = id_pro;
         verCursos();
         verMaterias();
+        comprobarEstado();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,6 +43,7 @@ public class TomarListaTable extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -50,6 +53,12 @@ public class TomarListaTable extends javax.swing.JFrame {
         jTable1.setModel(modelo);
         jTable1.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
         jScrollPane1.setViewportView(jTable1);
+
+        jCalendarComboBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCalendarComboBox1StateChanged(evt);
+            }
+        });
 
         jComboBox1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -61,7 +70,8 @@ public class TomarListaTable extends javax.swing.JFrame {
 
         jLabel2.setText("Materia");
 
-        jButton1.setText("Aceptar");
+        jButton1.setText("Tomar Asistencia");
+        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -73,26 +83,27 @@ public class TomarListaTable extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(5, 5, 5)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
-                            .addComponent(jComboBox1, 0, 140, Short.MAX_VALUE))
+                            .addComponent(jComboBox1, 0, 143, Short.MAX_VALUE))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jComboBox2, 0, 140, Short.MAX_VALUE)
+                                .addComponent(jComboBox2, 0, 142, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jCalendarComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(6, 6, 6)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(5, 5, 5)
+                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addGap(5, 5, 5)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -108,12 +119,15 @@ public class TomarListaTable extends javax.swing.JFrame {
                         .addComponent(jComboBox1)
                         .addComponent(jComboBox2))
                     .addComponent(jCalendarComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 293, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(2, 2, 2))
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                .addGap(5, 5, 5)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
+
+        jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButton1, jLabel3});
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -137,6 +151,7 @@ public class TomarListaTable extends javax.swing.JFrame {
     private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
         verMaterias();
         configurarTabla();
+        comprobarEstado();
     }//GEN-LAST:event_jComboBox1ItemStateChanged
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         tomarValores();
@@ -150,12 +165,16 @@ public class TomarListaTable extends javax.swing.JFrame {
             updateValores();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+    private void jCalendarComboBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCalendarComboBox1StateChanged
+        comprobarEstado();
+    }//GEN-LAST:event_jCalendarComboBox1StateChanged
     private void verCursos(){
         curso = new ArrayList();
         id_cur = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("SELECT curso.curso, curso.id_cur FROM registro.profesor INNER JOIN registro.materia INNER JOIN registro.curso\n" +
-                                                "ON profesor.id_pro = materia.id_pro AND curso.id_cur = materia.id_cur AND profesor.id_pro = '"+
-                                                id_pro+"' GROUP BY curso ORDER BY id_cur;");
+        String sql ="SELECT curso.curso, curso.id_cur FROM registro.profesor INNER JOIN registro.materia INNER JOIN registro.curso\n" +
+                    "ON profesor.id_pro = materia.id_pro AND curso.id_cur = materia.id_cur AND profesor.id_pro = '"+
+                    id_pro+"' GROUP BY curso ORDER BY id_cur;";
+        ResultSet rs = SIRP.con.listaResultados(sql);
         try {
             while(rs.next()){            
                 curso.add(rs.getString("curso"));
@@ -173,18 +192,19 @@ public class TomarListaTable extends javax.swing.JFrame {
         jComboBox2.removeAllItems();
         materia = new ArrayList();
         id_mat = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("SELECT materia.id_mat,materia.materia\n" +
-                "FROM registro.profesor INNER JOIN registro.materia INNER JOIN registro.curso\n" +
-                "ON profesor.id_pro = materia.id_pro AND materia.id_cur = curso.id_cur AND profesor.id_pro = '"+
-                id_pro+"' AND curso.id_cur = '"+
-                id_cur.get(jComboBox1.getSelectedIndex())+"'");
+        String sql ="SELECT materia.id_mat,materia.materia\n" +
+                    "FROM registro.profesor INNER JOIN registro.materia INNER JOIN registro.curso\n" +
+                    "ON profesor.id_pro = materia.id_pro AND materia.id_cur = curso.id_cur AND profesor.id_pro = '"+
+                    id_pro+"' AND curso.id_cur = '"+
+                    id_cur.get(jComboBox1.getSelectedIndex())+"'";
+        ResultSet rs = SIRP.con.listaResultados(sql);
         try {
             while(rs.next()){            
                 materia.add(rs.getString("materia"));
                 id_mat.add(rs.getInt("id_mat"));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(TomarLista.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TomarListaTable.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(int i = 0;i<materia.size();i++){
             jComboBox2.addItem(materia.get(i));
@@ -285,7 +305,44 @@ public class TomarListaTable extends javax.swing.JFrame {
                 + "Se actualizo correctamente";
         JOptionPane.showMessageDialog(rootPane, Mensaje);
     }
-       
+    private void comprobarEstado(){
+        tomarValores();
+        String sql = "SELECT estado FROM registro.asistencia WHERE id_dia ='"+
+                d.getId_dia()+"' AND id_mat ='"+
+                id_mat.get(jComboBox2.getSelectedIndex())+"';";
+        int n = SIRP.con.nSeleccionados(sql);
+        if(n==0){
+            jLabel3.setText("No se ha tomado Lista");
+            jLabel3.setForeground(Color.red);       
+            for(int i = 0;i<alumnos.size();i++){
+                modelo.setValueAt("Presente", i, 2);
+            }
+        }else{
+            jLabel3.setText("Ya se tomo lista");
+            jLabel3.setForeground(Color.GREEN);
+            for(int i = 0;i<alumnos.size();i++){
+                String cons = "SELECT `estado` FROM `registro`.`asistencia` WHERE `id_dia` = '"+
+                        d.getId_dia()+"' AND `id_alu` = '"+
+                        alumnos.get(i).getId()+"' AND `id_mat` = '"+
+                        id_mat.get(jComboBox2.getSelectedIndex())+"';";
+                String temp = (transValor(SIRP.con.ver(cons, "estado")));
+                modelo.setValueAt(temp, i, 2);
+            }
+            
+        }
+    }
+    private String transValor(String s){
+        String r = "";
+        if(s.equals("P"))
+            r+="Presente";
+        else{
+            if(s.equals("L"))
+                r+="Licencia";
+            else
+                r+="Falta";
+        }
+        return r;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
@@ -293,6 +350,7 @@ public class TomarListaTable extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBox2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
