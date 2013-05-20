@@ -1,13 +1,13 @@
-package sirp.GUI;
+package GUI;
 
+import Main.SIRP;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import sirp.*;
-import sirp.Entidades.Tema;
+import Entidades.Tema;
 
 public class RegistrarTema extends javax.swing.JFrame {
     public RegistrarTema(int id_mat) {

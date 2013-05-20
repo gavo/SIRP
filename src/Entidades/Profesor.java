@@ -1,34 +1,31 @@
-package sirp.Entidades;
+package Entidades;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import sirp.*;
+import Main.SIRP;
 
-public class Alumno implements Persona{
-
-    private int id_alu;
+public class Profesor implements Persona{
+    
+    private int id_pro;
     private String nombre;
     private String apellido;
     private String ci;
-    private Date nac;
     private String direccion;
     private String telf;
     
-    public Alumno(int id_alu){
-        this.id_alu = id_alu;
+    public Profesor(int id_pro){
+        this.id_pro = id_pro;
         ResultSet rs;
-        rs = SIRP.con.listaResultados("select * from registro.alumno where id_alu='"+id_alu+"';");
+        rs = SIRP.con.listaResultados("select * from registro.profesor where id_pro='"+id_pro+"';");
         try {
             while(rs.next()){
                 this.nombre = rs.getString("nombre");
                 this.apellido = rs.getString("apellido");
                 this.ci = rs.getString("ci");
                 this.direccion = rs.getString("direccion");
-                this.nac = rs.getDate("nac");
                 this.telf = rs.getString("telf");                
             }
         } catch (SQLException ex) {
@@ -36,16 +33,15 @@ public class Alumno implements Persona{
         }
     }
     
-    public Alumno(String nombreCompleto){
+    public Profesor(String nombreCompleto){
         ResultSet rs;
-        rs = SIRP.con.listaResultados("SELECT * FROM `registro`.`alumno` WHERE CONCAT(`nombre`,' ',`apellido`) = '"+nombreCompleto+"';");
+        rs = SIRP.con.listaResultados("SELECT * FROM `registro`.`profesor` WHERE CONCAT(`nombre`,' ',`apellido`) = '"+nombreCompleto+"';");
         try {
             while(rs.next()){            
-                id_alu = rs.getInt("id_alu");
+                id_pro = rs.getInt("id_pro");
                 nombre = rs.getString("nombre");
                 apellido = rs.getString("apellido");
                 ci = rs.getString("ci");
-                nac = rs.getDate("nac");
                 direccion = rs.getString("direccion");
                 telf = rs.getString("telf");
             }
@@ -54,47 +50,42 @@ public class Alumno implements Persona{
         }
     }
 
-    public Alumno(String nombre, String apellido, String ci, Date nac, String direccion, String telf) {
-        id_alu = SIRP.con.ultimo("registro.alumno", "id_alu")+1;
+    public Profesor(String nombre, String apellido, String ci, String direccion, String telf) {
+        id_pro = SIRP.con.ultimo("registro.alumno", "id_alu")+1;
         this.nombre = nombre;
         this.apellido = apellido;
         this.ci = ci;
-        this.nac = nac;
         this.direccion = direccion;
         this.telf = telf;
     }   
     
     @Override public int getId() {
-        return id_alu;
+        return id_pro;
     }
 
     @Override public void insert() {
         int seleccion = JOptionPane.showOptionDialog(null,
-        "¿Desea agregar a:"+nombre+" "+apellido+" como nuevo alumno?",
+        "¿Desea agregar a:"+nombre+" "+apellido+" como nuevo Profesor(a)?",
         "Seleccione una opción",JOptionPane.YES_NO_CANCEL_OPTION,
         JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Si", "No"},"Si");
         if (seleccion != -1){
-           if((seleccion + 1)==1){     
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+           if((seleccion + 1)==1){              
                 String s="";
-                s+= "INSERT INTO REGISTRO.ALUMNO(id_alu,nombre,apellido,ci,nac,direccion,telf) VALUES('";
-                s+= id_alu;
+                s+= "INSERT INTO REGISTRO.PROFESOR(id_pro, nombre, apellido,ci, direccion, telf) VALUES('";
+                s+= id_pro;
                 s+= "','";
                 s+= nombre;
                 s+= "','";
                 s+= apellido;
-                s+= "','";
+                s+="','";
                 s+= ci;
-                s+= "','";
-                s+= sdf.format(nac);
-                s+= "','";
+                s+="','";
                 s+= direccion;
-                s+= "','";
+                s+="','";
                 s+= telf;
                 s+= "');";
-                SIRP.con.query(s);
                 //registropedagogico.RegistroPedagogico.con.query(s);
-                JOptionPane.showMessageDialog(null, "El alumno fue Registrado Exitosamente");
+                JOptionPane.showMessageDialog(null, "El nuevo Profesor fue Registrado Exitosamente");
            }
            else{
                JOptionPane.showMessageDialog(null, "El registro fue Cancelado");
@@ -120,9 +111,9 @@ public class Alumno implements Persona{
 
     @Override public String getTelf() {
         return telf;
-    }
+    }   
     
     @Override public String toString(){
-        return id_alu+ ": "+nombre+" "+apellido;        
+        return id_pro+ " "+nombre+" "+apellido;
     }
 }

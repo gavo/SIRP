@@ -1,5 +1,9 @@
-package sirp.GUI;
+package GUI;
 
+import Main.SIRP;
+import Entidades.Dia;
+import Entidades.ListaAlumnos;
+import Entidades.Alumno;
 import java.awt.Color;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,8 +20,6 @@ import javax.swing.JOptionPane;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
-import sirp.Entidades.*;
-import sirp.*;
 
 public class RegistrarAsistencia extends javax.swing.JFrame {
     public RegistrarAsistencia(int id_pro) {

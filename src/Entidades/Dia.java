@@ -1,7 +1,7 @@
-package sirp.Entidades;
+package Entidades;
 
+import Main.SIRP;
 import java.util.Date;
-import sirp.*;
 
 public class Dia {
     private int id_dia;

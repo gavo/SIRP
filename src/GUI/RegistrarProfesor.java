@@ -1,8 +1,7 @@
-package sirp.GUI;
+package GUI;
 
 import java.awt.event.KeyEvent;
-import sirp.Entidades.Profesor;
-import sirp.*;
+import Entidades.Profesor;
 
 public class RegistrarProfesor extends javax.swing.JFrame {
     public RegistrarProfesor() {

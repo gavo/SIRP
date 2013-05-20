@@ -1,5 +1,5 @@
-package sirp.Entidades;
-import sirp.*;
+package Entidades;
+import Main.SIRP;
 public class Evaluacion {
     private int id_blo;
     private int id_tip;

@@ -1,7 +1,7 @@
-package sirp.Entidades;
+package Entidades;
 
+import Main.SIRP;
 import javax.swing.JOptionPane;
-import sirp.*;
 
 public class Materia {
     private int id_mat;

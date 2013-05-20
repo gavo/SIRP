@@ -1,15 +1,16 @@
-package sirp;
+package Main;
+import Entidades.Conexion;
+import GUI.RegistrarAsistencia;
 import com.birosoft.liquid.LiquidLookAndFeel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.UnsupportedLookAndFeelException;
-import sirp.GUI.*;
 public class SIRP {
 
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
         style();
-        new RegistrarTema(2);
+        new RegistrarAsistencia(2);
     }
     
     public static Conexion con;

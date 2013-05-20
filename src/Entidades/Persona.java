@@ -1,4 +1,4 @@
-package sirp.Entidades;
+package Entidades;
 public interface Persona {
     // devuelve el identificador de la persona
     public int getId();  
