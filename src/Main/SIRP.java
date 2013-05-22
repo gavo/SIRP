@@ -11,7 +11,8 @@ public class SIRP {
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
         style();
-        new Login();
+        //new RegistrarEvaluacion(1);
+        new RegistrarMateria();
     }
     
     public static Conexion con;
