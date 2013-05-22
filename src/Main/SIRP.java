@@ -31,4 +31,5 @@ public class SIRP {
     }
     
     public static int id;
+    public static String tipo;
 }

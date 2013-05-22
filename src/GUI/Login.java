@@ -166,6 +166,7 @@ public class Login extends javax.swing.JFrame {
         String user = jTextField1.getText();
         String pass = getHash(jPasswordField1.getText());     
         SIRP.id = Integer.parseInt(SIRP.con.ver("SELECT id FROM registro.cuenta WHERE `user`='"+user+"' AND `pass`='"+pass+"';", "id"));
+        SIRP.tipo = (SIRP.con.ver("SELECT tipo FROM registro.cuenta WHERE `user`='"+user+"' AND `pass`='"+pass+"';", "id"));
         SIRP.inicio();
         this.dispose();
     }
