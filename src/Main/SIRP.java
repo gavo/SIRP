@@ -1,16 +1,17 @@
 package Main;
 import Entidades.Conexion;
-import GUI.RegistrarAsistencia;
+import GUI.*;
 import com.birosoft.liquid.LiquidLookAndFeel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.UnsupportedLookAndFeelException;
 public class SIRP {
 
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
-        //style();
-        new RegistrarAsistencia(2);
+        style();
+        new Login();
     }
     
     public static Conexion con;
@@ -23,4 +24,11 @@ public class SIRP {
             Logger.getLogger(SIRP.class.getName()).log(Level.SEVERE, null, ex);
         }
    }
+    
+    public static void inicio(){
+        JOptionPane.showMessageDialog(null, "Conectado");
+        System.exit(id);
+    }
+    
+    public static int id;
 }
