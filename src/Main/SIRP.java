@@ -10,9 +10,10 @@ public class SIRP {
 
     public static void main(String[] args) {
         con = new Conexion("root","","localhost");
-        style();
+        LAF.style.style9();
         //new RegistrarEvaluacion(1);
-        new RegistrarMateria();
+        new Login();
+        
     }
     
     public static Conexion con;

@@ -21,6 +21,7 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
         this.id_mat = id_mat;
         id_cur = Integer.parseInt(SIRP.con.ver("SELECT id_cur FROM Registro.materia WHERE id_mat = '"+id_mat+"';", "id_cur"));
         this.verTema();
+        this.verEvaluaciones();
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -41,6 +42,18 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
 
         jTable1.setModel(modelo);
         jScrollPane1.setViewportView(jTable1);
+
+        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox1ItemStateChanged(evt);
+            }
+        });
+
+        jComboBox2.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBox2ItemStateChanged(evt);
+            }
+        });
 
         jLabel1.setText("Tema");
 
@@ -112,10 +125,36 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+        configurarTabla();
+    }//GEN-LAST:event_jComboBox1ItemStateChanged
+
+    private void jComboBox2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox2ItemStateChanged
+        configurarTabla();
+    }//GEN-LAST:event_jComboBox2ItemStateChanged
+
     private void verAlumnos(){
         alumnos = new ArrayList();
         ListaAlumnos l = new ListaAlumnos(id_cur);
         alumnos = l.getAl();
+    }
+    
+    private void verEvaluaciones(){
+        ResultSet rs = SIRP.con.listaResultados("SELECT * FROM `registro`.`tipo_ev`");
+        id_tip = new ArrayList();
+        tipo = new ArrayList();
+        try {
+            while(rs.next()){            
+                id_tip.add(rs.getInt("id_tip"));
+                tipo.add(rs.getString("tipo"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(RegistrarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        jComboBox2.removeAllItems();
+        for(int i = 0;i<tipo.size();i++){
+            jComboBox2.addItem(tipo.get(i));
+        }        
     }
     
     private void verTema(){
@@ -124,11 +163,20 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
         id_tem = new ArrayList();
         try {
             while(rs.next()){
-                                
+                id_tem.add(rs.getInt("id_tem"));
+                tema.add(rs.getString("tema"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
         }
+        jComboBox1.removeAllItems();
+        for(int i = 0;i<tema.size();i++){
+            jComboBox1.addItem(tema.get(i));
+        }
+    }
+    
+    private void verNotas(){
+        
     }
     
     private void configurarTabla(){
@@ -152,7 +200,6 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
         col.setMaxWidth(100);
         col.setMinWidth(100);
         col.setResizable(true);
-        col = jTable1.getColumnModel().getColumn(2);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -171,4 +218,6 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
     private List<Alumno> alumnos;
     private List tema;
     private List id_tem;
+    private List id_tip;
+    private List tipo;
 }
