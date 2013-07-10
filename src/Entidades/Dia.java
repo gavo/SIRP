@@ -35,7 +35,7 @@ public class Dia {
         int n = 0;
         n = SIRP.con.nSeleccionados("SELECT id_dia FROM registro.dia WHERE dia ='"+format.format(dia)+"'");
         if(n==0){
-            SIRP.con.query("INSERT INTO registro.dia(id_dia,dia)VALUES('"+
+            SIRP.con.consulta("INSERT INTO registro.dia(id_dia,dia)VALUES('"+
                     id_dia+"','"+
                     format.format(dia)+"');");
         }

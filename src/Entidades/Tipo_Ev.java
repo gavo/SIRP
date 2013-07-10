@@ -9,12 +9,12 @@ public class Tipo_Ev {
 
     public Tipo_Ev(String tipo) {
         this.tipo = tipo;
-        id_tip = SIRP.con.ultimo("registro.tipo_ev", "id_tip")+1; 
+        id_tip = SIRP.con.ultimo("tipo_ev", "id_tip")+1; 
     }
 
     public Tipo_Ev(int id_tip){
         this.id_tip = id_tip;
-        tipo = SIRP.con.ver("select tipo from registro.tipo_ev where id_tip='"+id_tip+"';", "tipo");
+        tipo = SIRP.con.ver("select tipo from tipo_ev where id_tip='"+id_tip+"';", "tipo");
     }
 
     public void setId_tip(int id_tip) {
@@ -41,12 +41,13 @@ public class Tipo_Ev {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "INSERT INTO REGISTRO.TIPO_ev(id_tip,tipo) VALUES('";
+                s+= "exec insertarTipo_ev '";
                 s+= id_tip;
                 s+= "','";
                 s+= tipo;
-                s+= "');";
-                SIRP.con.query(s);
+                s+= "'";
+                SIRP.con.ejecutar(s);
+                System.out.println(s);
                 JOptionPane.showMessageDialog(null, "la nueva Evaluacion fue Registrada Exitosamente");
            }
            else{
@@ -63,10 +64,10 @@ public class Tipo_Ev {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "DELETE FROM `registro`.`tipo_ev` WHERE `id_tip`='";
+                s+= "DELETE FROM tipo_ev WHERE id_tip='";
                 s+= id_tip;
                 s+= "';";
-                SIRP.con.query(s);
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "La Evaluacion fue Removida Exitosamente");
            }
            else{

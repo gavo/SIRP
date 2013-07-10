@@ -178,7 +178,7 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
         String sql ="SELECT curso.curso, curso.id_cur FROM registro.profesor INNER JOIN registro.materia INNER JOIN registro.curso\n" +
                     "ON profesor.id_pro = materia.id_pro AND curso.id_cur = materia.id_cur AND profesor.id_pro = '"+
                     id_pro+"' GROUP BY curso ORDER BY id_cur;";
-        ResultSet rs = SIRP.con.listaResultados(sql);
+        ResultSet rs = SIRP.con.consulta(sql);
         try {
             while(rs.next()){            
                 curso.add(rs.getString("curso"));
@@ -201,7 +201,7 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
                     "ON profesor.id_pro = materia.id_pro AND materia.id_cur = curso.id_cur AND profesor.id_pro = '"+
                     id_pro+"' AND curso.id_cur = '"+
                     id_cur.get(jComboBox1.getSelectedIndex())+"'";
-        ResultSet rs = SIRP.con.listaResultados(sql);
+        ResultSet rs = SIRP.con.consulta(sql);
         try {
             while(rs.next()){            
                 materia.add(rs.getString("materia"));
@@ -286,7 +286,7 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
                 + alumnos.get(i).getId()+"','"
                 + id_mat.get(jComboBox2.getSelectedIndex())+"','"
                 + estados.get(i)+"');";
-            SIRP.con.query(sql);
+            SIRP.con.ejecutar(sql);
         }
         String Mensaje = "El Control de Asistencia para la materia de "+jComboBox2.getSelectedItem()+"\n"
                 + "Correspondiente al Curso "+jComboBox1.getSelectedItem()+", en el dia "+d.getDia()+"\n"
@@ -301,7 +301,7 @@ public class RegistrarAsistencia extends javax.swing.JFrame {
                 + id_dia+"' and id_alu='"
                 + alumnos.get(i).getId()+"' and id_mat='"
                 + id_mat.get(jComboBox2.getSelectedIndex())+"';";
-            SIRP.con.query(sql);
+            SIRP.con.ejecutar(sql);
         }
         String Mensaje = "El Control de Asistencia para la materia de "+jComboBox2.getSelectedItem()+"\n"
                 + "Correspondiente al curso "+jComboBox1.getSelectedItem()+", en el dia "+d.getDia()+"\n"

@@ -9,12 +9,12 @@ public class Curso {
 
     public Curso(String curso) {
         this.curso = curso;
-        id_cur = SIRP.con.ultimo("registro.curso", "id_cur")+1; 
+        id_cur = SIRP.con.ultimo("curso", "id_cur")+1; 
     }
 
     public Curso(int id_cur){
         this.id_cur = id_cur;
-        curso = SIRP.con.ver("select curso from registro.curso where id_cur='"+id_cur+"';", "curso");
+        curso = SIRP.con.ver("select curso from curso where id_cur='"+id_cur+"';", "curso");
     }
     
     public int getId_cur() {
@@ -41,12 +41,12 @@ public class Curso {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "INSERT INTO REGISTRO.CURSO(id_cur,curso) VALUES('";
+                s+= "INSERT INTO CURSO(id_cur,curso) VALUES('";
                 s+= id_cur;
                 s+= "','";
                 s+= curso;
                 s+= "');";
-                SIRP.con.query(s);
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "El nuevo Curso fue Registrado Exitosamente");
            }
            else{
@@ -63,10 +63,10 @@ public class Curso {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "DELETE FROM `registro`.`curso` WHERE `id_cur`='";
+                s+= "DELETE FROM curso WHERE id_cur='";
                 s+= id_cur;
                 s+= "';";
-                SIRP.con.query(s);
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "El nuevo Curso fue Removido Exitosamente");
            }
            else{

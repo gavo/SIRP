@@ -154,7 +154,7 @@ public class RegistrarCurso extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int id_cur = Integer.parseInt(SIRP.con.ver("select id_cur from registro.curso where curso='"+jComboBox1.getSelectedItem()+"';", "id_cur"));
+        int id_cur = Integer.parseInt(SIRP.con.ver("select id_cur from curso where curso='"+jComboBox1.getSelectedItem()+"';", "id_cur"));
         Curso c = new Curso(id_cur);
         c.eliminar();
         verChoice();
@@ -163,7 +163,7 @@ public class RegistrarCurso extends javax.swing.JFrame {
     private void verChoice(){
         jComboBox1.removeAllItems();
         vec = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("select * from registro.curso");
+        ResultSet rs = SIRP.con.consulta("select * from curso");
         try {
             while(rs.next()){
                 vec.add(rs.getString("curso"));

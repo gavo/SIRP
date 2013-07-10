@@ -228,7 +228,7 @@ public class RegistrarMateria extends javax.swing.JFrame {
     private void verMaterias(){
         jComboBox4.removeAllItems();
         vec = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("SELECT materia.id_mat,materia.materia FROM registro.materia INNER JOIN registro.curso ON materia.id_cur = curso.id_cur WHERE curso.curso = '"+jComboBox3.getSelectedItem()+"'");
+        ResultSet rs = SIRP.con.consulta("SELECT materia.id_mat,materia.materia FROM materia INNER JOIN curso ON materia.id_cur = curso.id_cur WHERE curso.curso = '"+jComboBox3.getSelectedItem()+"'");
         try {
             while(rs.next()){
                 vec.add(rs.getString("materia"));                
@@ -243,7 +243,7 @@ public class RegistrarMateria extends javax.swing.JFrame {
     private void verProfesores(){
         jComboBox2.removeAllItems();
         vec1 = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("select * from registro.profesor");
+        ResultSet rs = SIRP.con.consulta("select * from profesor");
         try {
             while(rs.next()){
                 vec1.add(rs.getString("nombre")+" "+rs.getString("apellido"));
@@ -259,7 +259,7 @@ public class RegistrarMateria extends javax.swing.JFrame {
         jComboBox1.removeAllItems();
         jComboBox3.removeAllItems();
         vec2 = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("select * from registro.curso");
+        ResultSet rs = SIRP.con.consulta("select * from curso");
         try {
             while(rs.next()){
                 vec2.add(rs.getString("curso"));
@@ -274,8 +274,8 @@ public class RegistrarMateria extends javax.swing.JFrame {
     }
     
     private void InsertarDatos(){
-        int id_cur = Integer.parseInt(SIRP.con.ver("select * from registro.curso where curso = '"+jComboBox1.getSelectedItem()+"';","id_cur"));
-        int id_pro = Integer.parseInt(SIRP.con.ver("select id_pro,nombre,apellido from registro.profesor where CONCAT(nombre,' ',apellido)='"+jComboBox2.getSelectedItem()+"';", "id_pro"));
+        int id_cur = Integer.parseInt(SIRP.con.ver("select * from curso where curso = '"+jComboBox1.getSelectedItem()+"';","id_cur"));
+        int id_pro = Integer.parseInt(SIRP.con.ver("select id_pro,nombre,apellido from profesor where (nombre+' '+apellido)='"+jComboBox2.getSelectedItem()+"';", "id_pro"));
         Materia m = new Materia(id_cur,id_pro,jTextField1.getText());
         m.insert();
         verMaterias();

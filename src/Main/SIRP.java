@@ -9,15 +9,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class SIRP {
 
     public static void main(String[] args) {
-        con = new Conexion("root","","localhost");
-        LAF.style.style9();
+        con = new Conexion();
         //new RegistrarEvaluacion(1);
-        new Login();
+        new RegistrarTipoEvaluacion();
         
     }
     
     public static Conexion con;
-    //ESTO ES UNA PRUEBA, NO TIENE VALOR....
     public static void style(){
         try {
             javax.swing.UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");

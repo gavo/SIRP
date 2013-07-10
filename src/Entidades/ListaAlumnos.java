@@ -16,7 +16,7 @@ public class ListaAlumnos {
         this.id_cur = id_cur;
         lista = new ArrayList();
         List n = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("SELECT alumno.id_alu FROM registro.inscripcion INNER JOIN registro.alumno ON inscripcion.id_alu = alumno.id_alu AND id_cur = '"+id_cur+"';");
+        ResultSet rs = SIRP.con.consulta("SELECT alumno.id_alu FROM registro.inscripcion INNER JOIN registro.alumno ON inscripcion.id_alu = alumno.id_alu AND id_cur = '"+id_cur+"';");
         try {
             while(rs.next()){ 
                 n.add(rs.getInt("id_alu"));

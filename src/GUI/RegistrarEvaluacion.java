@@ -140,7 +140,7 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
     }
     
     private void verEvaluaciones(){
-        ResultSet rs = SIRP.con.listaResultados("SELECT * FROM `registro`.`tipo_ev`");
+        ResultSet rs = SIRP.con.consulta("SELECT * FROM `registro`.`tipo_ev`");
         id_tip = new ArrayList();
         tipo = new ArrayList();
         try {
@@ -158,7 +158,7 @@ public class RegistrarEvaluacion extends javax.swing.JFrame {
     }
     
     private void verTema(){
-        ResultSet rs = SIRP.con.listaResultados("SELECT * FROM registro.tema WHERE id_mat ='"+id_mat+"';");
+        ResultSet rs = SIRP.con.consulta("SELECT * FROM registro.tema WHERE id_mat ='"+id_mat+"';");
         tema = new ArrayList();
         id_tem = new ArrayList();
         try {

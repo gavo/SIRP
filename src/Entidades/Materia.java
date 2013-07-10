@@ -10,17 +10,17 @@ public class Materia {
     private String materia;
 
     public Materia(int id_cur, int id_pro, String materia) {
-        id_mat = SIRP.con.ultimo("registro.materia", "id_mat")+1;
+        id_mat = SIRP.con.ultimo("materia", "id_mat")+1;
         this.id_cur = id_cur;
         this.id_pro = id_pro;
         this.materia = materia;
     }
     
     public Materia(String curso, String materia){
-        this.id_cur = Integer.parseInt(SIRP.con.ver("select id_cur from registro.curso where curso='"+curso+"';", "id_cur"));
+        this.id_cur = Integer.parseInt(SIRP.con.ver("select id_cur from curso where curso='"+curso+"';", "id_cur"));
         this.materia = materia;
-        this.id_pro = Integer.parseInt(SIRP.con.ver("select id_pro from registro.materia where id_cur ='"+id_cur+"' and materia ='"+materia+"';", "id_pro"));
-        this.id_mat = Integer.parseInt(SIRP.con.ver("select id_mat from registro.materia where id_cur ='"+id_cur+"' and materia ='"+materia+"';", "id_mat"));
+        this.id_pro = Integer.parseInt(SIRP.con.ver("select id_pro from materia where id_cur ='"+id_cur+"' and materia ='"+materia+"';", "id_pro"));
+        this.id_mat = Integer.parseInt(SIRP.con.ver("select id_mat from materia where id_cur ='"+id_cur+"' and materia ='"+materia+"';", "id_mat"));
     }
 
     public void setId_mat(int id_mat) {
@@ -64,16 +64,16 @@ public class Materia {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "INSERT INTO REGISTRO.MATERIA(id_mat,id_cur,id_pro,materia) VALUES('";
+                s+= "exec insertarMateria '";
                 s+= id_mat;
                 s+= "','";
                 s+= id_cur;
                 s+= "','";
-                s+= id_pro;
-                s+= "','";
                 s+= materia;
-                s+= "');";
-                SIRP.con.query(s);
+                s+= "','";
+                s+= id_pro;
+                s+= "'";
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "La nueva materia fue registrada Exitosamente");
            }
            else{
@@ -90,10 +90,10 @@ public class Materia {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "DELETE FROM `registro`.`materia` WHERE `id_mat`='";
+                s+= "DELETE FROM materia WHERE id_mat='";
                 s+= id_mat;
                 s+= "';";
-                SIRP.con.query(s);
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "La materia fue removida Exitosamente");
            }
            else{

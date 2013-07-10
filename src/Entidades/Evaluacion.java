@@ -62,7 +62,7 @@ public class Evaluacion {
                 + id_tem+"','"
                 + id_alu+"','"
                 + nota+"'); ";
-        SIRP.con.query(sql);
+        SIRP.con.consulta(sql);
     }
     
     public void update(){
@@ -71,7 +71,7 @@ public class Evaluacion {
                 + id_tip+"' AND `id_tem`='"
                 + id_tem+"' AND `id_alu`='"
                 + id_alu+"'; ";
-        SIRP.con.query(sql);
+        SIRP.con.consulta(sql);
     }
     
     public void delete(){
@@ -79,6 +79,6 @@ public class Evaluacion {
                 + id_tip+"' AND `id_tem`='"
                 + id_tem+"' AND `id_alu`='"
                 + id_alu+"'; ";
-        SIRP.con.query(sql);
+        SIRP.con.consulta(sql);
     }
 }

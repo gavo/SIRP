@@ -19,7 +19,7 @@ public class Profesor implements Persona{
     public Profesor(int id_pro){
         this.id_pro = id_pro;
         ResultSet rs;
-        rs = SIRP.con.listaResultados("select * from registro.profesor where id_pro='"+id_pro+"';");
+        rs = SIRP.con.consulta("select * from registro.profesor where id_pro='"+id_pro+"';");
         try {
             while(rs.next()){
                 this.nombre = rs.getString("nombre");
@@ -35,7 +35,7 @@ public class Profesor implements Persona{
     
     public Profesor(String nombreCompleto){
         ResultSet rs;
-        rs = SIRP.con.listaResultados("SELECT * FROM `registro`.`profesor` WHERE CONCAT(`nombre`,' ',`apellido`) = '"+nombreCompleto+"';");
+        rs = SIRP.con.consulta("SELECT * FROM `registro`.`profesor` WHERE CONCAT(`nombre`,' ',`apellido`) = '"+nombreCompleto+"';");
         try {
             while(rs.next()){            
                 id_pro = rs.getInt("id_pro");
@@ -51,7 +51,7 @@ public class Profesor implements Persona{
     }
 
     public Profesor(String nombre, String apellido, String ci, String direccion, String telf) {
-        id_pro = SIRP.con.ultimo("registro.alumno", "id_alu")+1;
+        id_pro = SIRP.con.ultimo("alumno", "id_alu")+1;
         this.nombre = nombre;
         this.apellido = apellido;
         this.ci = ci;
@@ -70,8 +70,7 @@ public class Profesor implements Persona{
         JOptionPane.QUESTION_MESSAGE, null, new Object[] { "Si", "No"},"Si");
         if (seleccion != -1){
            if((seleccion + 1)==1){              
-                String s="";
-                s+= "INSERT INTO REGISTRO.PROFESOR(id_pro, nombre, apellido,ci, direccion, telf) VALUES('";
+                String s="exec insertarProfesor '";
                 s+= id_pro;
                 s+= "','";
                 s+= nombre;
@@ -83,8 +82,8 @@ public class Profesor implements Persona{
                 s+= direccion;
                 s+="','";
                 s+= telf;
-                s+= "');";
-                //registropedagogico.RegistroPedagogico.con.query(s);
+                s+= "'";
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "El nuevo Profesor fue Registrado Exitosamente");
            }
            else{

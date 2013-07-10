@@ -14,7 +14,7 @@ public class RegistrarTema extends javax.swing.JFrame {
         this.id_mat = id_mat;
         initComponents();
         this.setVisible(true);
-        this.setTitle("Registro de Tema");
+        this.setTitle(obMat()+": Registro de Tema");
         this.setLocationRelativeTo(null);
         verTemas();
     }
@@ -125,6 +125,10 @@ public class RegistrarTema extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private String obMat(){
+        return SIRP.con.ver("select materia from materia where id_mat="+id_mat, "materia");
+    }
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         Tema t = new Tema(id_mat,jTextField1.getText());
         t.insert();
@@ -141,8 +145,8 @@ public class RegistrarTema extends javax.swing.JFrame {
         temas = new ArrayList();
         id_tem = new ArrayList();
         jComboBox1.removeAllItems();
-        String sql = "SELECT id_tem, tema FROM Registro.tema WHERE id_mat ='"+id_mat+"'";
-        ResultSet rs = SIRP.con.listaResultados(sql);
+        String sql = "SELECT id_tem, tema FROM tema WHERE id_mat ='"+id_mat+"'";
+        ResultSet rs = SIRP.con.consulta(sql);
         try {
             while(rs.next()){
                 temas.add(rs.getString("tema"));

@@ -154,7 +154,7 @@ public class RegistrarBloque extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int id_blo = Integer.parseInt(SIRP.con.ver("select id_blo from registro.bloque where bloque='"+jComboBox1.getSelectedItem()+"';", "id_blo"));
+        int id_blo = Integer.parseInt(SIRP.con.ver("select id_blo from bloque where bloque='"+jComboBox1.getSelectedItem()+"';", "id_blo"));
         Bloque b = new Bloque(id_blo);
         b.eliminar();
         verChoice();
@@ -163,7 +163,7 @@ public class RegistrarBloque extends javax.swing.JFrame {
     private void verChoice(){
         jComboBox1.removeAllItems();
         vec = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("select * from registro.bloque");
+        ResultSet rs = SIRP.con.consulta("select * from bloque");
         try {
             while(rs.next()){
                 vec.add(rs.getString("bloque"));

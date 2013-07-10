@@ -185,7 +185,6 @@ public class RegistrarProfesor extends javax.swing.JFrame {
     private void ejecutarAccion(){
         Profesor p = new Profesor(jTextField1.getText(),jTextField2.getText(),jTextField3.getText(),jTextField4.getText(),jTextField5.getText());
         p.insert();
-        this.dispose();
     }
     
     private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
@@ -209,7 +208,8 @@ public class RegistrarProfesor extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField4KeyPressed
 
     private void jTextField5KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField5KeyPressed
-        ejecutarAccion();
+        if(evt.getKeyCode()==KeyEvent.VK_ENTER)
+            ejecutarAccion();
     }//GEN-LAST:event_jTextField5KeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

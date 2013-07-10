@@ -219,8 +219,8 @@ public class RegistrarAlumno extends javax.swing.JFrame {
         a.insert();
         Date year = new Date();
         years = year.getYear()+1900;
-        int id_cur = Integer.parseInt(SIRP.con.ver("Select id_cur from registro.curso where curso.curso='"+jComboBox1.getSelectedItem()+"';", "id_cur"));
-        SIRP.con.query("Insert into registro.inscripcion(id_alu,id_cur,gestion) values('"+a.getId()+"','"+id_cur+"','"+years+"');");
+        int id_cur = Integer.parseInt(SIRP.con.ver("Select id_cur from curso where curso='"+jComboBox1.getSelectedItem()+"';", "id_cur"));
+        SIRP.con.ejecutar("exec insertarInscripcion '"+a.getId()+"','"+id_cur+"','"+years+"'");
         this.dispose();
     }
     
@@ -232,7 +232,7 @@ public class RegistrarAlumno extends javax.swing.JFrame {
     private void verCursos(){
         jComboBox1.removeAllItems();
         cursos = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("Select * from registro.curso order by curso.id_cur");
+        ResultSet rs = SIRP.con.consulta("Select * from curso order by curso.id_cur");
         try {
             while(rs.next()){                 
                 cursos.add(rs.getString("curso"));

@@ -21,7 +21,7 @@ public class Alumno implements Persona{
     public Alumno(int id_alu){
         this.id_alu = id_alu;
         ResultSet rs;
-        rs = SIRP.con.listaResultados("select * from registro.alumno where id_alu='"+id_alu+"';");
+        rs = SIRP.con.consulta("select * from registro.alumno where id_alu='"+id_alu+"';");
         try {
             while(rs.next()){
                 this.nombre = rs.getString("nombre");
@@ -38,7 +38,7 @@ public class Alumno implements Persona{
     
     public Alumno(String nombreCompleto){
         ResultSet rs;
-        rs = SIRP.con.listaResultados("SELECT * FROM `registro`.`alumno` WHERE CONCAT(`nombre`,' ',`apellido`) = '"+nombreCompleto+"';");
+        rs = SIRP.con.consulta("SELECT * FROM `registro`.`alumno` WHERE CONCAT(`nombre`,' ',`apellido`) = '"+nombreCompleto+"';");
         try {
             while(rs.next()){            
                 id_alu = rs.getInt("id_alu");
@@ -55,7 +55,7 @@ public class Alumno implements Persona{
     }
 
     public Alumno(String nombre, String apellido, String ci, Date nac, String direccion, String telf) {
-        id_alu = SIRP.con.ultimo("registro.alumno", "id_alu")+1;
+        id_alu = SIRP.con.ultimo("alumno", "id_alu")+1;
         this.nombre = nombre;
         this.apellido = apellido;
         this.ci = ci;
@@ -77,7 +77,7 @@ public class Alumno implements Persona{
            if((seleccion + 1)==1){     
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
                 String s="";
-                s+= "INSERT INTO REGISTRO.ALUMNO(id_alu,nombre,apellido,ci,nac,direccion,telf) VALUES('";
+                s+= "exec insertarAlumno '";
                 s+= id_alu;
                 s+= "','";
                 s+= nombre;
@@ -91,8 +91,8 @@ public class Alumno implements Persona{
                 s+= direccion;
                 s+= "','";
                 s+= telf;
-                s+= "');";
-                SIRP.con.query(s);
+                s+= "'";
+                SIRP.con.ejecutar(s);
                 //registropedagogico.RegistroPedagogico.con.query(s);
                 JOptionPane.showMessageDialog(null, "El alumno fue Registrado Exitosamente");
            }

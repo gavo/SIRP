@@ -9,12 +9,12 @@ public class Bloque {
 
     public Bloque(String bloque) {
         this.bloque = bloque;
-        id_blo = SIRP.con.ultimo("registro.bloque", "id_blo")+1; 
+        id_blo = SIRP.con.ultimo("bloque", "id_blo")+1; 
     }
 
     public Bloque(int id_blo){
         this.id_blo = id_blo;
-        bloque = SIRP.con.ver("select bloque from registro.bloque where id_blo='"+id_blo+"';", "bloque");
+        bloque = SIRP.con.ver("select bloque from bloque where id_blo='"+id_blo+"';", "bloque");
     }
 
     public int getId_blo() {
@@ -41,12 +41,12 @@ public class Bloque {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "INSERT INTO REGISTRO.BLOQUE(id_blo,bloque) VALUES('";
+                s+= "exec insertarBloque '";
                 s+= id_blo;
                 s+= "','";
                 s+= bloque;
-                s+= "');";
-                SIRP.con.query(s);
+                s+= "'";
+                SIRP.con.ejecutar(s);
                 JOptionPane.showMessageDialog(null, "El nuevo Bloque fue Registrado Exitosamente");
            }
            else{
@@ -63,10 +63,11 @@ public class Bloque {
         if (seleccion != -1){
            if((seleccion + 1)==1){              
                 String s="";
-                s+= "DELETE FROM `registro`.`bloque` WHERE `id_blo`='";
+                s+= "DELETE FROM bloque WHERE id_blo='";
                 s+= id_blo;
                 s+= "';";
-                SIRP.con.query(s);
+                SIRP.con.ejecutar(s);
+                System.out.println(s);
                 JOptionPane.showMessageDialog(null, "El nuevo Bloque fue Removido Exitosamente");
            }
            else{

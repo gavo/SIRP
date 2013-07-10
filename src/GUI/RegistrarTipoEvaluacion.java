@@ -154,7 +154,7 @@ public class RegistrarTipoEvaluacion extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField1KeyPressed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        int id_tip = Integer.parseInt(SIRP.con.ver("select id_tip from registro.tipo_ev where tipo='"+jComboBox1.getSelectedItem()+"';", "id_tip"));
+        int id_tip = Integer.parseInt(SIRP.con.ver("select id_tip from tipo_ev where tipo='"+jComboBox1.getSelectedItem()+"';", "id_tip"));
         Tipo_Ev t = new  Tipo_Ev(id_tip);
         t.eliminar();
         verChoice();
@@ -163,7 +163,7 @@ public class RegistrarTipoEvaluacion extends javax.swing.JFrame {
     private void verChoice(){
         jComboBox1.removeAllItems();
         vec = new ArrayList();
-        ResultSet rs = SIRP.con.listaResultados("select * from registro.tipo_Ev");
+        ResultSet rs = SIRP.con.consulta("select * from tipo_Ev");
         try {
             while(rs.next()){
                 vec.add(rs.getString("tipo"));
